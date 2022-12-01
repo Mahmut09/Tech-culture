@@ -10,9 +10,8 @@ contract MyToken {
     mapping(address => mapping(address => uint)) allowances;
     mapping (address => bool) public blackList;
 
-    uint8 public decimals = 18;
-    string public name = "Kazakh";
-    string public symbol = "KZ";
+    string public _name = "Kazakh";
+    string public _symbol = "KZ";
 
     function addToBlackList(address bannedAccount) external {
         require(msg.sender == owner, "You are not onwer");
@@ -21,6 +20,17 @@ contract MyToken {
         blackList[bannedAccount] = true;
     }
 
+    function name() external view returns(string memory) {
+        return _name;
+    }
+
+    function symbol() external view returns(string memory) {
+        return _symbol;
+    }
+
+    function decimals() external pure returns(uint) {
+        return 18; // 1 token == 1 wei
+    }
 
     function totalSupply() external view returns(uint) {
         return totalAmount;
