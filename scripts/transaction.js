@@ -338,10 +338,14 @@ async function main() {
     const amount = 1000000000000000n;
     const connectionWithWallet = contract.connect(wallet);
 
+    const mint = await connectionWithWallet.mint();
+    await mint.wait();
+
     const tx = await connectionWithWallet.transfer(to, amount);
     await tx.wait();
 
-    connectionWithWallet.addToBlackList(to);
+    const blackList = await connectionWithWallet.addToBlackList(to);
+    await blackList.wait();
 }
 
 main();
