@@ -1,16 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
 contract MyToken {
     uint public totalAmount = 1000000e18;
 
     address payable public owner;
 
-    mapping (address => uint) public balances;
+    mapping(address => uint) public balances;
     mapping(address => mapping(address => uint)) allowances;
-    mapping (address => bool) public blackList;
+    mapping(address => bool) public blackList;
 
     string public _name = "Kazakh";
     string public _symbol = "KZ";
@@ -38,7 +36,7 @@ contract MyToken {
         return totalAmount;
     }
 
-    function balanceOf(address account) external view returns(uint) {
+    function balanceOf(address account) public view returns(uint)  {
         return balances[account];
     }
 
@@ -65,7 +63,7 @@ contract MyToken {
         emit Approve(msg.sender, spender, amount);
     }
 
-    function transferFrom(address sender, address recipient, uint amount) external{
+    function transferFrom(address sender, address recipient, uint amount) public{
         allowances[sender][recipient] -= amount;
         balances[sender] -= amount;
         balances[recipient] += amount;
